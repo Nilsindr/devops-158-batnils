@@ -14,15 +14,15 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                sh 'bash -c "cd ~/devops-158-batnils-tp && source venv/bin/activate && pip install flask"'
+                sh 'bash -c "cd $WORKSPACE && python3 -m venv venv && source venv/bin/activate && pip install flask"'
             }
         }
 
         stage('Restart Flask app') {
             steps {
                 script {
-                    sh 'pkill -f "python app.py" || true'
-                    sh 'bash -c "cd ~/devops-158-batnils-tp && source venv/bin/activate && nohup python app.py > flask.log 2>&1 &"'
+                    sh 'pkill -f "python3 app.py" || true'
+                    sh 'bash -c "cd $WORKSPACE && source venv/bin/activate && nohup python3 app.py > flask.log 2>&1 &"'
                 }
             }
         }
