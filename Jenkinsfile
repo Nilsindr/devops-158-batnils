@@ -14,12 +14,7 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                dir('devops-158-batnils-tp') {
-                    sh '''
-                        source venv/bin/activate
-                        pip install flask
-                    '''
-                }
+                sh 'bash -c "cd ~/devops-158-batnils-tp && source venv/bin/activate && pip install flask"'
             }
         }
 
@@ -27,11 +22,7 @@ pipeline {
             steps {
                 script {
                     sh 'pkill -f "python app.py" || true'
-                    sh '''
-                        cd ~/devops-158-batnils-tp
-                        source venv/bin/activate
-                        nohup python app.py > flask.log 2>&1 &
-                    '''
+                    sh 'bash -c "cd ~/devops-158-batnils-tp && source venv/bin/activate && nohup python app.py > flask.log 2>&1 &"'
                 }
             }
         }
