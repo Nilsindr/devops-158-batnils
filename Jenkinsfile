@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     triggers {
-Modifié le: lundi 4 mai 2026, 08:15
-        pollSCM('* * * * *')  // vérifie toutes les minutes
+        pollSCM('* * * * *')
     }
 
     stages {
@@ -13,17 +12,9 @@ Modifié le: lundi 4 mai 2026, 08:15
             }
         }
 
-        stage('Pull latest code') {
-            steps {
-                dir('~/devops-158-batnils-tp') {
-                    git branch: 'main', url: 'https://github.com/Nilsindr/devops-158-batnils/'
-                }
-            }
-        }
-
         stage('Install dependencies') {
             steps {
-                dir('~/devops-158-batnils-tp') {
+                dir('devops-158-batnils-tp') {
                     sh '''
                         source venv/bin/activate
                         pip install flask
@@ -55,4 +46,3 @@ Modifié le: lundi 4 mai 2026, 08:15
         }
     }
 }
-
